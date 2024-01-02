@@ -1,30 +1,24 @@
 <script setup>
-import HomePage from './components/HomePage.vue'
+import {onMounted, ref} from "vue";
+
+const backgroundMusic = ref(null);
+
+onMounted(() => {
+  if (backgroundMusic.value) {
+    backgroundMusic.value.play().catch(e => {
+      console.error("Audio playback failed:", e);
+    });
+  }
+});
 </script>
 
 <template>
-  <!-- <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div> -->
-  <HomePage/>
+  <audio ref="backgroundMusic" loop autoplay hidden>
+    <source src="../static/epic-hollywood-trailer-9489.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <router-view></router-view>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>

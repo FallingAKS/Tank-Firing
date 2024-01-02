@@ -1,10 +1,10 @@
 <script setup>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {ElMessage} from "element-plus";
 import router from "../router";
 
-const npcNum = ref(3)
-const difficulty = ref(0)
+const npcNum = ref(localStorage.getItem('npcNum') ? parseInt(localStorage.getItem('npcNum')) : 3)
+const difficulty = ref(localStorage.getItem('difficulty') ? parseInt(localStorage.getItem('difficulty')) : 0)
 const difficultyLevel = ref('休闲')
 const difficultyInfo = ref('想来试炼场度假？')
 
@@ -13,7 +13,6 @@ function changeDifficulty(color) {
     difficulty.value = 0;
     difficultyLevel.value = '休闲';
     difficultyInfo.value = '想来试炼场度假？';
-
   } else if (color === 'y') {
     difficulty.value = 1;
     difficultyLevel.value = '谨慎';
@@ -26,26 +25,85 @@ function changeDifficulty(color) {
 }
 
 function clickPve() {
-  ElMessage({
-    message: 'PVE功能暂未开放！',
-    type: 'warning'
-  });
+  localStorage.setItem('npcNum', npcNum.value.toString());
+  localStorage.setItem('difficulty', difficulty.value.toString());
+
+  // ElMessage({
+  //   message: 'PVE功能暂未开放！',
+  //   type: 'warning'
+  // });
+
+  // router.push('/pve');
+  window.location.href = '../../static/pve.html';
 }
 function clickPvp() {
+  localStorage.setItem('npcNum', npcNum.value.toString());
+  localStorage.setItem('difficulty', difficulty.value.toString());
+
+  // ElMessage({
+  //   message: 'PVP功能暂未开放！',
+  //   type: 'warning'
+  // });
+
   // router.push('/pvp');
   window.location.href = '../../static/pvp.html';
 }
 function clickPvpve() {
-  ElMessage({
-    message: 'PVPVE功能暂未开放！',
-    type: 'warning'
-  });
+  localStorage.setItem('npcNum', npcNum.value.toString());
+  localStorage.setItem('difficulty', difficulty.value.toString());
+
+  // ElMessage({
+  //   message: 'PVPVE功能暂未开放！',
+  //   type: 'warning'
+  // });
+
+  // router.push('/pvpve');
+  window.location.href = '../../static/pvpve.html';
 }
+
+function clickShiba() {
+  localStorage.setItem('npcNum', npcNum.value.toString());
+  localStorage.setItem('difficulty', difficulty.value.toString());
+
+  // ElMessage({
+  //   message: '十八罗汉塔《试炼场》功能暂未开放！',
+  //   type: 'warning'
+  // });
+
+  // router.push('/shiba');
+  window.location.href = '../../static/shiba.html';
+}
+
+// 页面加载时，根据localStorage中的difficulty设置difficultyLevel和difficultyInfo
+if (difficulty.value === 0) {
+  difficultyLevel.value = '休闲';
+  difficultyInfo.value = '想来试炼场度假？';
+} else if (difficulty.value === 1) {
+  difficultyLevel.value = '谨慎';
+  difficultyInfo.value = '谨慎！再谨慎！！';
+} else {
+  difficultyLevel.value = '地狱';
+  difficultyInfo.value = '已启动自毁倒计时……';
+}
+
+// const backgroundMusic = ref(null);
+//
+// onMounted(() => {
+//   if (backgroundMusic.value) {
+//     backgroundMusic.value.play().catch(e => {
+//       console.error("Audio playback failed:", e);
+//     });
+//   }
+// });
 </script>
 
 <template>
+<!--  <audio ref="backgroundMusic" loop autoplay hidden>-->
+<!--    <source src="../../static/epic-hollywood-trailer-9489.mp3" type="audio/mpeg">-->
+<!--    Your browser does not support the audio element.-->
+<!--  </audio>-->
   <div style="position: relative; perspective: 1200px;">
-    <div class="right-box" style="position: absolute; top: 310px; left: 946px; z-index: 5;
+    <div class="right-box" style="position: absolute; top: 300px; left: 946px; z-index: 5;
         min-width: 366px; min-height: 460px;">
       <div style="font-size: 24px; float: right;">
         机械恶犬数量：<span style="font-size: 106px;">{{ npcNum }}&nbsp;</span>
@@ -74,6 +132,8 @@ function clickPvpve() {
       <div style="font-size: 20px; margin: 14px;">
         {{ difficultyInfo }}
       </div>
+      <el-button  style="font-size: large;" type="primary" @click="clickShiba">十八罗汉塔《试炼场》</el-button>
+      <br><span>&nbsp;</span>
     </div>
 
     <img src="../assets/img/bg.jpg" style=" z-index: 1;"/>

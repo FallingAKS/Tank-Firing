@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+      /* 定义按钮样式 */
+      #myButton {
+          background-color: #4CAF50; /* 设置背景颜色 */
+          color: white; /* 设置文字颜色 */
+          padding: 10px 20px; /* 设置内边距 */
+          font-size: 16px; /* 设置字体大小 */
+          border: none; /* 移除边框 */
+          cursor: pointer; /* 设置鼠标样式为手型 */
+          border-radius: 4px; /* 设置边框圆角 */
+      }
+
+      /* 鼠标悬停时的样式 */
+      #myButton:hover {
+          background-color: #45a049; /* 设置背景颜色 */
+      }
+  </style>
+  <script src='./js/shiba.js'></script>
+</head>
+<body>
+<div style="background: rgb(200,220,250); margin: 0; padding: 0">
+  <button id="myButton">返回主页</button>
+  <div id="page"></div>
+</div>
+
+</body>
+</html>
+
+<script>
+    // 获取按钮
+    const myButton = document.getElementById("myButton");
+    // 绑定点击事件
+    myButton.onclick = function () {
+        history.back();
+    }
+</script>
